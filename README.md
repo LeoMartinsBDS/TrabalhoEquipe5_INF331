@@ -13,7 +13,7 @@
 
 ## Diagrama Geral do Nível 1
 
-> Apresente um diagrama conforme o modelo a seguir: TODO
+![Diagrama do barramento completo](./images/inf331_trabalho_final.png)
 
 ![Modelo de diagrama no nível 1](images/diagrama-barramento.png)
 
