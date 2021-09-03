@@ -33,12 +33,13 @@
 * O componente `Assinante` envia mensagem no tópico `adherence/{signatureId/{user}` para se cadastrar em um plano de assinatura que por sua vez é escutado pelo componente `Assinatura`.
 * O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/closer` emitido pelo componente `SDOMaisProximo` para obter ofertas mais próximas.
 * O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/type/{typeId}` emitido pelo componente `SDOPerfilAssinante` para obter ofertas personalizadas de acordo com o gosto pessoal.
-* O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/lowestPrice` emitido pelo componente `SDOMenorPreco` para obter os produtos com menores preços.
+* O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/lowestPrice` emitido pelo componente `SDOMenorPreco` para obter as ofertas dos produtos com menores preços.
+* O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/sponsored` emitido pelo componente `SDOPatrocinados` para obter as ofertas de produtos patrocinados.
 * O componente `Consumidor` envia a mensagem no tópico `order/{cart}` para que seja realizado a compra do produto escolhido pelo cliente.
 * O componente `Compra` escuta a mensagem no tópico `order/{cart}` emitido por `Consumidor` e então realiza a comunicação com o pagamento. O componente `Compra` provém para o pagamento a interface `ICompra`.
 * O componente `Pagamento` por requerer uma interface `ICompra`, ao obte-la realiza todos os processamentos necessários com o carrinho de compras do consumidor.
-* O Pagamento então dispara, com o pedido feito, dispara uma mensagem no tópico order/{sale}/{storeid} contendo as informações da venda e o id da loja.
-* O componente de lojas escutam o tópico order/{sale}/{sotreId} e obtem os dados da venda realizada para o cliente.
+* O Pagamento então dispara, com o pedido feito, dispara uma mensagem no tópico `order/{sale}/{storeid}` contendo as informações da venda e o id da loja.
+* O componente de lojas escutam o tópico `order/{sale}/{sotreId}` e obtem os dados da venda realizada para o cliente.
 * A loja então, emite uma mensagem no tópico `ship/{sale}/{shipid}`.
 * O componente `Transporte` recebe a mensagem presente no tópico `ship/{sale}/{shipid}` e então a processa, para que então o componente do Consumidor possa requerer os dados do transporte através da interface
   `ITransporte`
