@@ -28,6 +28,13 @@
   específicos sobre elas, finalmente selecionando quais ofertas serão enviadas ao assinante, através da interface `OfferDistService`.
 * As ofertas filtradas pelos SDO são emitidas no barramento na forma de tópicos "`offer/{offerId}/+`", em que o wildcard representa uma das terminações de
   tópico específicas para os SDO (`closer`, `type/{typeId}`, `lowestPrice`, `sponsored`).
+
+* O componente `Assinante` escuta a mensagem no tópico `signatures/listall` emitido por `Assinatura` para obter a lista de tipos de assinaturas disponíveis para apreciação.
+* O componente `Assinante` envia mensagem no tópico `adherence/{signatureId/{user}` para se cadastrar em um plano de assinatura que por sua vez é escutado pelo componente `Assinatura`.
+* O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/closer` emitido pelo componente `SDOMaisProximo` para obter ofertas mais próximas.
+* O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/type/{typeId}` emitido pelo componente `SDOPerfilAssinante` para obter ofertas personalizadas de acordo com o gosto pessoal.
+* O componente `Assinante` escuta mensagens no tópico `offer/{offerId}/lowestPrice` emitido pelo componente `SDOMenorPreco` para obter os produtos com menores preços.
+
 > Para cada componente será apresentado um documento conforme o modelo a seguir:
 
 ## Componente `<Nome do Componente>`
