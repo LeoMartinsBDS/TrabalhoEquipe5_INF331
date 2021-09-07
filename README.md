@@ -146,15 +146,14 @@
 > Dados da interface podem ser apresentados em formato texto, conforme exemplo:
 
 * Type: `sink`
-* Topic: `pedido/+/entrega`
-* Message type: `Order`
+* Topic: `adhesion/{subscriptionId}/{user}`
+* Message type: `Adhesion`
 
 > Ou em formato de imagem, conforme exemplo:
 
 ![Diagrama de Interface de Mensagens](images/diagrama-interface-mensagens.png)
 
 > Diagrama representando o esquema das mensagens JSON utilizadas na interface, pode ser em formato texto conforme exemplo:
-
 ~~~json
 {
   orderId: string,
@@ -172,6 +171,150 @@
 > Ou em formato de imagem, conforme exemplo:
 
 ![Diagrama de Mensagens JSON](images/diagrama-interface-json.png)
+
+
+### Interface `adhesionEngage`
+> A interface *adhesionEngage* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
+
+* Type: `sink`
+* Topic: `adhesion/{subscriptionId}/{user}`
+* Message type: `Adhesion`
+
+ Diagrama em formato JSON da interface adhesionEngage:
+~~~json
+{
+  user: {
+    id: number,
+    name: string,
+    email: string
+  },
+  subscriptionId: number  
+}
+~~~
+
+### Interface `subscriptions`
+> A interface *subscriptions* é responsável por disponibilizar os tipos de assinatura disponíveis. Trata-se de uma comunicação assíncrona.
+
+* Type: `source`
+* Topic: `subscriptions/listall`
+* Message type: `Subscriptions`
+
+> Diagrama em formato JSON da interface subscriptions, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
+
+~~~json
+{
+  subscriptions: [
+    { 
+      id: number,
+      name: string,
+      descrition: string,
+      price: float,
+      period: string,
+      type: number,
+     },
+   { 
+      id: number,
+      name: string,
+      descrition: string,
+      price: float,
+      period: string,
+      type: number,
+     },
+     { 
+      id: number,
+      name: string,
+      descrition: string,
+      price: float,
+      period: string,
+      type: number,
+     },
+  ]
+}
+~~~
+
+### Interface `adhesionStart`
+> A interface *adhesionStart* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
+
+* Type: `source`
+* Topic: `adhesion/{subscriptionId}/{user}`
+* Message type: `Adhesion`
+
+ Diagrama em formato JSON da interface adhesionStart:
+~~~json
+{
+  user: {
+    id: number,
+    name: string,
+    email: string
+  },
+  subscriptionId: number  
+}
+~~~
+
+### Interface `subscriptionsEngage`
+> A interface *subscriptionsEngage* é responsável por receber de forma assíncrona os tipos de assinaturas disponíveis no marketplace.
+
+* Type: `sink`
+* Topic: `subscriptions/listall`
+* Message type: `Subscriptions`
+
+ Diagrama em formato JSON da interface subscriptionsEngage:
+~~~json
+{
+  subscriptions: [
+    { 
+      id: number,
+      name: string,
+      descrition: string,
+      price: float,
+      period: string,
+      type: number,
+     },
+   { 
+      id: number,
+      name: string,
+      descrition: string,
+      price: float,
+      period: string,
+      type: number,
+     },
+     { 
+      id: number,
+      name: string,
+      descrition: string,
+      price: float,
+      period: string,
+      type: number,
+     },
+  ]
+}
+~~~
+
+### Interface `sdoOfferEngage`
+> A interface *sdoOfferEngage* é responsável por receber de forma assíncrona todos tipos de ofertas existentes dentro do marketplace.
+
+* Type: `sink`
+* Topic: `offer/{offerId}/sdo/+`
+* Message type: `Offer`
+
+> Diagrama em formato JSON da interface sdoOfferEngage, onde id é o identificador da oferta, startDate é a data de início da oferta, endDate é a data de término da oferta, price é o preço da oferta. Product trata-se do objeto produto, onde, id é o identificador, name é o nome do produto, category é a lista de categorias em que o produto está associado, type é o tipo de produto e rating é a avaliação do produto.
+~~~json
+{
+   id: number,
+   startDate: Date,
+   endDate: Date,
+   price: float,
+   product:
+     {
+        id: number,
+        name: string, 
+        category: array, 
+        description: string,
+        type: string,
+        rating: float,
+     }
+}
+~~~
 
 # Nível 2
 
