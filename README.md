@@ -103,7 +103,6 @@
 > subscriptions
 > adhesionEngage
 
- 
 ## Componente `Assinante`
 > O componente assinante engloba todos os processos e requisitos que representam a ideia de assinante. Ele possui a interface ‘subscriptionsEngage’ para escutar os tipos de assinatura disponíveis pelo marketplace. Possui também a interface ‘sdoOfferEngage’ para receber as ofertas de acordo com o seu perfil e demais tipos de ofertas disponibilizadas pelos SDO’s (serviço de distribuição de ofertas). O componente assinante ainda possui a interface de comunicação para solicitar a inscrição em um plano de assinatura chamada de ‘adhesionStart’.
 
@@ -116,6 +115,16 @@
 > sdoOfferEngage
 > adhesionStart
 
+## Componente `Consumidor`
+> O componente consumidor é responsável por atribuir serviços e interfaces que representam toda a função de consumidor. Possui a interface provida sendCart para enviar o pedido do carrinho de compras para pagamento. Possui também a interface ITransporte requerida para verificar o rastreio do pedido do carrinho.
+ 
+> Diagrama do componente, conforme exemplo a seguir:
+
+![Consumidor](images/diagrama-componente-consumidor.png)
+ 
+**Interfaces**
+> ITransporte
+> sendCart
 
 ## Detalhamento das Interfaces
 
