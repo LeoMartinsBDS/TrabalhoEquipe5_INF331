@@ -15,7 +15,7 @@
 
 ![Diagrama do barramento completo](./images/inf331_trabalho_final.png)
 
-![Modelo de diagrama no nível 1](images/diagrama-barramento.png)
+
 
 ### Detalhamento da interação de componentes
 
