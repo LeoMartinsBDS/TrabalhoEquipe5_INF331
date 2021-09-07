@@ -96,7 +96,8 @@
 > O componente assinatura representa todos os processos e serviços inerentes à assinatura. O componente oferece o serviço de listar (envia mensagem no tópico) os tipos de assinatura disponíveis para serem aderidos pelo consumidor através da interface ‘subscriptions’. Além disso, oferece também a interface adhesionEngage (subscribe) receber pedidos de adesões em assinaturas disponíveis.
 
 > Diagrama do componente
->![Assinatura](images/diagrama-componente-assinatura.png)
+
+![Assinatura](images/diagrama-componente-assinatura.png)
 
 **Interfaces**
 > subscriptions
@@ -107,7 +108,8 @@
 > O componente assinante engloba todos os processos e requisitos que representam a ideia de assinante. Ele possui a interface ‘subscriptionsEngage’ para escutar os tipos de assinatura disponíveis pelo marketplace. Possui também a interface ‘sdoOfferEngage’ para receber as ofertas de acordo com o seu perfil e demais tipos de ofertas disponibilizadas pelos SDO’s (serviço de distribuição de ofertas). O componente assinante ainda possui a interface de comunicação para solicitar a inscrição em um plano de assinatura chamada de ‘adhesionStart’.
 
 > Diagrama do componente
-> ![Assinante](images/diagrama-componente-assinante.png)
+
+![Assinante](images/diagrama-componente-assinante.png)
 
 **Interfaces**
 > subscriptionsEngage
