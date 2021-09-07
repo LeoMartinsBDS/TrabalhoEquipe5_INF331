@@ -118,13 +118,24 @@
 ## Componente `Consumidor`
 > O componente consumidor é responsável por atribuir serviços e interfaces que representam toda a função de consumidor. Possui a interface provida sendCart para enviar o pedido do carrinho de compras para pagamento. Possui também a interface ITransporte requerida para verificar o rastreio do pedido do carrinho.
  
-> Diagrama do componente, conforme exemplo a seguir:
+> Diagrama do componente
 
 ![Consumidor](images/diagrama-componente-consumidor.png)
  
 **Interfaces**
 > - ITransporte
 > - sendCart
+
+## Componente `Transporte`
+> Este componente é responsável por prover informações sobre o transporte de uma determinada compra através da interface provida Itransporte. Possui também a interface de comunicação assíncrona para escutar no barramento informações sobre o rastreio do compra através de trackEngage.
+
+> Diagrama do componente
+
+![Transporte](images/diagrama-componente-transporte.png)
+ 
+**Interfaces**
+> - ITransporte
+> - trackEngage
 
 ## Detalhamento das Interfaces
 
