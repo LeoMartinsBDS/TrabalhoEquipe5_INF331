@@ -43,20 +43,50 @@
 * O componente `Transporte` recebe a mensagem presente no tópico `ship/{sale}/{shipId}` e então a processa, para que então o componente do Consumidor possa requerer os dados do transporte através da interface
   `ITransporte`
 
-> Para cada componente será apresentado um documento conforme o modelo a seguir:
-
-## Componente `<Nome do Componente>`
-
-> Resumo do papel do componente e serviços que ele oferece.
-
-> Diagrama do componente, conforme exemplo a seguir:
-
-![Componente](diagrama-componente-mensagens.png)
-
+## Componente `Compra`
+ 
+> Este componente tem como objetivo realizar o controle da compra de uma mercadoria no marketplace. Oferece como serviço o envio da compra realizada para o pagamento através da interface ICompra e o recebimento do carrinho de compras através da interface cartReceived.
+ 
+> Diagrama do componente
+![Compra](images/diagrama-compra.png)
+ 
 **Interfaces**
-> Listagem das interfaces do componente.
-
-As interfaces listadas são detalhadas a seguir:
+> ICompra
+> cartReceived
+ 
+## Componente `Pagamento`
+ 
+> Este componente tem como objetivo realizar o pagamento do carrinho de compras. Tem como serviço requerer o pedido da compra, através da interface ICompra e realizar o envio do pagamento após a efetivação, através da interface sendSale.
+ 
+> Diagrama do componente
+![Pagamento](images/diagrama-pagamento.png)
+ 
+**Interfaces**
+> ICompra
+> sendSale
+ 
+## Componente `JobOfertaDoDia`
+ 
+> Este componente tem como objetivo realizar o disparo do processo de gerar as ofertas do dia corrente. Basicamente o serviço dele é, obter os produtos internamente e realizar o disparo das ofertas dos produtos escolhidos através da interface jobOfferStart.
+ 
+> Diagrama do componente
+![JobOfferStart](images/diagrama-jobofferstart.png)
+ 
+**Interfaces**
+> jobOfferStart
+ 
+## Componente `Loja`
+ 
+> Este componente visa representar os processos realizados internamente por uma loja de um marketplace. No contexto do nosso marketplace, possui como serviços receber as vendas, enviar informações para rastreamento, entrar em ofertas e enviar ofertas aos clientes. A ideia desse componente é permitir a integração de várias lojas ao sistema sem que haja necessidade de reescrever códigos fontes.
+ 
+> Diagrama do componente
+![JobOfferStart](images/diagrama-loja.png)
+ 
+**Interfaces**
+> saleReceived
+> trackStart
+> jobOfferEngage
+> sendOffer
 
 ## Detalhamento das Interfaces
 
