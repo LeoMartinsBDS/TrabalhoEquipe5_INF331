@@ -139,40 +139,6 @@
 
 ## Detalhamento das Interfaces
 
-### Interface `<nome da interface>`
-
-> Resumo do papel da interface.
-
-> Dados da interface podem ser apresentados em formato texto, conforme exemplo:
-
-* Type: `sink`
-* Topic: `adhesion/{subscriptionId}/{user}`
-* Message type: `Adhesion`
-
-> Ou em formato de imagem, conforme exemplo:
-
-![Diagrama de Interface de Mensagens](images/diagrama-interface-mensagens.png)
-
-> Diagrama representando o esquema das mensagens JSON utilizadas na interface, pode ser em formato texto conforme exemplo:
-~~~json
-{
-  orderId: string,
-  dueDate: date,
-  total: number,
-  items: [
-    {
-         itemid: string,
-         quantity: number
-    }
-  ]  
-}
-~~~
-
-> Ou em formato de imagem, conforme exemplo:
-
-![Diagrama de Mensagens JSON](images/diagrama-interface-json.png)
-
-
 ### Interface `adhesionStart`
 > A interface *adhesionStart* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
  
@@ -187,7 +153,7 @@
 * Topic: `adhesion/+/+`
 * Message type: `Adhesion`
  
-Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
+Diagrama em formato JSON do message type Adhesion:
 ~~~json
 {
  user: {
@@ -213,7 +179,7 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
  
-> Diagrama em formato JSON da interface subscriptionsEngage, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
+> Diagrama em formato JSON do message type Subscriptions:
  
 ~~~json
 {
@@ -253,8 +219,6 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 * Topic: `order/{sale}/{storeId}`
 * Message type: `Sale`
  
-> Diagrama em formato JSON da interface sendSale, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
- 
 ### Interface `saleReceived`
 > A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
  
@@ -262,12 +226,12 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 * Topic: `order/+/+`
 * Message type: `Sale`
  
-> Diagrama em formato JSON da interface saleReceived, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
+> Diagrama em formato JSON do message type Sale:
 ~~~json
 {
-	 storeId: number,
-  id: number,
-  customerid: number,
+ storeId: number,
+ id: number,
+ customerid: number,
  sellDate: Date,
   totalPrice: float,
 	 product: [
@@ -281,32 +245,59 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 }
 ~~~
 
-
+### Interface `sendSDOCloser`
+> A interface *sendSDOCloser* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos que estão em promoção ao consumidores mais proximos das lojas
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/closer`
+* Message type: `Offer`
+### Interface `sendSDOSubscriberProfile`
+> A interface *sendSDOSubscriberProfile* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos que estão em promoção aos consumidores que possuem algum determinado perfil de assinante.
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/type/{typeId}`
+* Message type: `Offer`
+ 
+### Interface `sendSDOLowestPrice`
+> A interface *sendSDOLowestPrice* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos que estão em promoção com menor preço aos consumidores.
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/lowestPrice`
+* Message type: `Offer`
+ 
+### Interface `sendSDOSponsored`
+> A interface *sendSDOSponsored* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos patrocinados que estão em promoção aos consumidores.
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/sponsored`
+* Message type: `Offer`
+ 
 ### Interface `sdoOfferEngage`
 > A interface *sdoOfferEngage* é responsável por receber de forma assíncrona todos tipos de ofertas existentes dentro do marketplace.
-
+ 
 * Type: `sink`
-* Topic: `offer/{offerId}/sdo/+`
+* Topic: `offer/{offerId}/#`
 * Message type: `Offer`
-
-> Diagrama em formato JSON da interface sdoOfferEngage, onde id é o identificador da oferta, startDate é a data de início da oferta, endDate é a data de término da oferta, price é o preço da oferta. Product trata-se do objeto produto, onde, id é o identificador, name é o nome do produto, category é a lista de categorias em que o produto está associado, type é o tipo de produto e rating é a avaliação do produto.
+ 
+> Diagrama em formato JSON do message type Offer
 ~~~json
 {
-   id: number,
-   startDate: Date,
-   endDate: Date,
-   price: float,
-   product:
-     {
-        id: number,
-        name: string, 
-        category: array, 
-        description: string,
-        type: string,
-        rating: float,
-     }
+  id: number,
+  startDate: Date,
+  endDate: Date,
+  price: float,
+  product:
+    {
+       id: number,
+       name: string,
+       category: array,
+       description: string,
+       type: string,
+       rating: float,
+    }
 }
 ~~~
+
 
 # Nível 2
 
