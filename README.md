@@ -232,14 +232,14 @@
 }
 ~~~
 
-### Interface `adhesionStart`
-> A interface *adhesionStart* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
+### Interface `adhesionEngage`
+> A interface *adhesionEngage* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
 
 * Type: `source`
 * Topic: `adhesion/{subscriptionId}/{user}`
 * Message type: `Adhesion`
 
- Diagrama em formato JSON da interface adhesionStart:
+ Diagrama em formato JSON da interface adhesionEngage:
 ~~~json
 {
   user: {
@@ -251,14 +251,14 @@
 }
 ~~~
 
-### Interface `subscriptionsEngage`
-> A interface *subscriptionsEngage* é responsável por receber de forma assíncrona os tipos de assinaturas disponíveis no marketplace.
+### Interface `subscriptions`
+> A interface *subscriptions* é responsável por receber de forma assíncrona os tipos de assinaturas disponíveis no marketplace.
 
 * Type: `sink`
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
 
- Diagrama em formato JSON da interface subscriptionsEngage:
+ Diagrama em formato JSON da interface subscriptions:
 ~~~json
 {
   subscriptions: [
