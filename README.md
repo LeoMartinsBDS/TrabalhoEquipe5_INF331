@@ -233,15 +233,15 @@ Diagrama em formato JSON do message type Adhesion:
  id: number,
  customerid: number,
  sellDate: Date,
-  totalPrice: float,
-	 product: [
+ totalPrice: float,
+ product: [
     {
        id: number,
        name: string,
        price: float,
 		quantity: float,
     }
-	 ]
+ ]
 }
 ~~~
 
