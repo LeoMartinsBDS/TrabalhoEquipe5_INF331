@@ -173,122 +173,114 @@
 ![Diagrama de Mensagens JSON](images/diagrama-interface-json.png)
 
 
-### Interface `adhesionEngage`
-> A interface *adhesionEngage* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
-
-* Type: `sink`
+### Interface `adhesionStart`
+> A interface *adhesionStart* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
+ 
+* Type: `source`
 * Topic: `adhesion/{subscriptionId}/{user}`
 * Message type: `Adhesion`
-
- Diagrama em formato JSON da interface adhesionEngage:
+ 
+### Interface `adhesionEngage`
+> A interface *adhesionEngage* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
+ 
+* Type: `sink`
+* Topic: `adhesion/+/+`
+* Message type: `Adhesion`
+ 
+Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 ~~~json
 {
-  user: {
-    id: number,
-    name: string,
-    email: string
-  },
-  subscriptionId: number  
+ user: {
+   id: number,
+   name: string,
+   email: string
+ },
+ subscriptionId: number 
 }
 ~~~
 
 ### Interface `subscriptions`
 > A interface *subscriptions* é responsável por disponibilizar os tipos de assinatura disponíveis. Trata-se de uma comunicação assíncrona.
-
+ 
 * Type: `source`
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
-
-> Diagrama em formato JSON da interface subscriptions, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
-
-~~~json
-{
-  subscriptions: [
-    { 
-      id: number,
-      name: string,
-      descrition: string,
-      price: float,
-      period: string,
-      type: number,
-     },
-   { 
-      id: number,
-      name: string,
-      descrition: string,
-      price: float,
-      period: string,
-      type: number,
-     },
-     { 
-      id: number,
-      name: string,
-      descrition: string,
-      price: float,
-      period: string,
-      type: number,
-     },
-  ]
-}
-~~~
-
-### Interface `adhesionEngage`
-> A interface *adhesionEngage* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
-
-* Type: `source`
-* Topic: `adhesion/{subscriptionId}/{user}`
-* Message type: `Adhesion`
-
- Diagrama em formato JSON da interface adhesionEngage:
-~~~json
-{
-  user: {
-    id: number,
-    name: string,
-    email: string
-  },
-  subscriptionId: number  
-}
-~~~
-
-### Interface `subscriptions`
-> A interface *subscriptions* é responsável por receber de forma assíncrona os tipos de assinaturas disponíveis no marketplace.
-
+ 
+### Interface `subscriptionsEngage`
+> A interface *subscriptionsEngage* é responsável por receber de forma assíncrona os tipos de assinaturas disponíveis no marketplace.
+ 
 * Type: `sink`
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
-
- Diagrama em formato JSON da interface subscriptions:
+ 
+> Diagrama em formato JSON da interface subscriptionsEngage, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
+ 
 ~~~json
 {
-  subscriptions: [
-    { 
-      id: number,
-      name: string,
-      descrition: string,
-      price: float,
-      period: string,
-      type: number,
-     },
-   { 
-      id: number,
-      name: string,
-      descrition: string,
-      price: float,
-      period: string,
-      type: number,
-     },
-     { 
-      id: number,
-      name: string,
-      descrition: string,
-      price: float,
-      period: string,
-      type: number,
-     },
-  ]
+ subscriptions: [
+   {
+     id: number,
+     name: string,
+     descrition: string,
+     price: float,
+     period: string,
+     type: number,
+    },
+  {
+     id: number,
+     name: string,
+     descrition: string,
+     price: float,
+     period: string,
+     type: number,
+    },
+    {
+     id: number,
+     name: string,
+     descrition: string,
+     price: float,
+     period: string,
+     type: number,
+    },
+ ]
 }
 ~~~
+
+### Interface `sendSale`
+> A interface de comunicação assíncrona *sendSale* é responsável por enviar as informações da compra. 
+ 
+* Type: `source`
+* Topic: `order/{sale}/{storeId}`
+* Message type: `Sale`
+ 
+> Diagrama em formato JSON da interface sendSale, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
+ 
+### Interface `saleReceived`
+> A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
+ 
+* Type: `sink`
+* Topic: `order/+/+`
+* Message type: `Sale`
+ 
+> Diagrama em formato JSON da interface saleReceived, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
+~~~json
+{
+	 storeId: number,
+  id: number,
+  customerid: number,
+ sellDate: Date,
+  totalPrice: float,
+	 product: [
+    {
+       id: number,
+       name: string,
+       price: float,
+		quantity: float,
+    }
+	 ]
+}
+~~~
+
 
 ### Interface `sdoOfferEngage`
 > A interface *sdoOfferEngage* é responsável por receber de forma assíncrona todos tipos de ofertas existentes dentro do marketplace.
