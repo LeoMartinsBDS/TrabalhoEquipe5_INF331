@@ -411,59 +411,30 @@ Diagrama em formato JSON da mensagem `OfferStart`
    offerId: number
  }
 }
-
+~~~ 
 
 
 # Nível 2
 
-> Apresente aqui o detalhamento do Nível 2 conforme detalhado na especificação com, no mínimo, as seguintes subseções:
-
 ## Diagrama do Nível 2
-
-> Apresente um diagrama conforme o modelo a seguir:
-
-> ![Modelo de diagrama no nível 2](images/diagrama-subcomponentes.png)
+> ![Modelo de diagrama no nível 2](images/diagrama_componentes_internos.png)
 
 ### Detalhamento da interação de componentes
 
-> O detalhamento deve seguir um formato de acordo com o exemplo a seguir:
+* O componente `Controller Assinaturas` ao receber uma mensagem de tópico "`subscriptions/all`", provê para a view a listagem de tipos de assinaturas disponíveis através da interface `IAssinaturas`.
+* O componente `Controller Assinaturas` ao receber do componente viewAssinatura uma mensagem através da interface `IStartAssinatura`, dispara no tópico "`adhesion/{subscritionId}/{user}`" a solicitação de adesão a um plano de assinatura pela interface adhesionStart.
+* O componente `Controller Ofertas` ao receber uma mensagens nos tópicos referentes "`offer/+/+`", provê para a viewAssinatura a listagem de ofertas de produtos utilizando a iterface `IOfertas`.
+* O componente `View Assinante` é o responsável por exibir graficamente as mensagens trocadas com o barramento. Ele possui a interface provida `IStartAssinatura` onde é possível o usuário solicitar a adesão em algum plano de assinatura. Possui também a interface requerida `IAssinaturas` onde recebe um conjunto de tipos de planos de assinatura para exibí-los na interface. Paralelamente a isso, possui também a interface requerida `IOfertas` onde recebe uma lista de ofertas para serem disponibilizadas para o assinante.
 
-* O componente `Entrega Pedido Compra` assina no barramento mensagens de tópico "`pedido/+/entrega`" através da interface `Solicita Entrega`.
-  * Ao receber uma mensagem de tópico "`pedido/+/entrega`", dispara o início da entrega de um conjunto de produtos.
-* Os componentes `Solicita Estoque` e `Solicita Compra` se comunicam com componentes externos pelo barramento:
-  * Para consultar o estoque, o componente `Solicita Estoque` publica no barramento uma mensagem de tópico "`produto/<id>/estoque/consulta`" através da interface `Consulta Estoque` e assina mensagens de tópico "`produto/<id>/estoque/status`" através da interface `Posição Estoque` que retorna a disponibilidade do produto.
 
-> Para cada componente será apresentado um documento conforme o modelo a seguir:
+## Componente `<Nome do Componente>`
 
-## Componente `ViewAssinante`
- 
-> Este componente tem como objetivo realizar a renderização dos dados em tela. Ela recebe dados de assinaturas e ofertas. Como serviço, oferece a opção de “startar” uma assinatura atráves da interface `IStartAssinatura`
- 
-![Componente](images/diagrama_view.png)
- 
+> Resumo do papel do componente e serviços que ele oferece.
+
+![Componente](images/diagrama-componente.png)
+
 **Interfaces**
-> IStartAssinatura
-> IAssinaturas
-> IOfertas
- 
-## Componente `Controller Ofertas`
- 
-> Este componente tem como objetivo ser uma controladora do componente maior, focando em ofertas. Neste caso, ele pega o que foi “escutado” no barramento pela interface sdoOfferEngage e provém para a view, através da interface IOfertas as informações das ofertas obtidas.
- 
-![Componente](images/diagrama_controller_ofertas.png)
- 
-**Interfaces**
-> IOfertas
- 
-## Componente `Controller Assinaturas`
- 
-> Este componente tem como objetivo ser uma controladora do componente maior, focando em assinaturas. Neste caso, ele pega o que foi “escutado” no barramento pela interface subscritionsEngage e provém para a view, através da interface IASSinaturas as informações das ofertas obtidas. Esse componente, também é responsável por iniciar uma adesão de uma assinatura. Isso é possível, pois ele requer uma interface IStartAssinatura, a qual é provida pela ViewAssinante. Ao obter o “start” da assinatura, a mesma sai do componente maior e é enviado para o barramento através da interface adhesionStart.
- 
-![Componente](images/diagrama_controller_assinatura.png)
- 
-**Interfaces**
-> IAssinaturas
-> IStartAssinatura
+> Listagem das interfaces do componente.
 
 As interfaces listadas são detalhadas a seguir:
 
