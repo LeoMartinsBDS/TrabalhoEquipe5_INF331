@@ -153,7 +153,7 @@
 * Topic: `adhesion/+/+`
 * Message type: `Adhesion`
  
-Diagrama em formato JSON do message type Adhesion:
+Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 ~~~json
 {
  user: {
@@ -164,7 +164,7 @@ Diagrama em formato JSON do message type Adhesion:
  subscriptionId: number 
 }
 ~~~
-
+ 
 ### Interface `subscriptions`
 > A interface *subscriptions* é responsável por disponibilizar os tipos de assinatura disponíveis. Trata-se de uma comunicação assíncrona.
  
@@ -179,7 +179,7 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
  
-> Diagrama em formato JSON do message type Subscriptions:
+> Diagrama em formato JSON da interface subscriptions, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
  
 ~~~json
 {
@@ -187,7 +187,7 @@ Diagrama em formato JSON do message type Adhesion:
    {
      id: number,
      name: string,
-     descrition: string,
+     description: string,
      price: float,
      period: string,
      type: number,
@@ -195,7 +195,7 @@ Diagrama em formato JSON do message type Adhesion:
   {
      id: number,
      name: string,
-     descrition: string,
+     description: string,
      price: float,
      period: string,
      type: number,
@@ -203,7 +203,7 @@ Diagrama em formato JSON do message type Adhesion:
     {
      id: number,
      name: string,
-     descrition: string,
+     description: string,
      price: float,
      period: string,
      type: number,
@@ -211,40 +211,7 @@ Diagrama em formato JSON do message type Adhesion:
  ]
 }
 ~~~
-
-### Interface `sendSale`
-> A interface de comunicação assíncrona *sendSale* é responsável por enviar as informações da compra. 
  
-* Type: `source`
-* Topic: `order/{sale}/{storeId}`
-* Message type: `Sale`
- 
-### Interface `saleReceived`
-> A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
- 
-* Type: `sink`
-* Topic: `order/+/+`
-* Message type: `Sale`
- 
-> Diagrama em formato JSON do message type Sale:
-~~~json
-{
- storeId: number,
- id: number,
- customerid: number,
- sellDate: Date,
- totalPrice: float,
- product: [
-    {
-       id: number,
-       name: string,
-       price: float,
-		quantity: float,
-    }
- ]
-}
-~~~
-
 ### Interface `sendSDOCloser`
 > A interface *sendSDOCloser* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos que estão em promoção ao consumidores mais proximos das lojas
  
@@ -279,7 +246,22 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `offer/{offerId}/#`
 * Message type: `Offer`
  
-> Diagrama em formato JSON do message type Offer
+### Interface `sendOffer`
+> Essa interface corresponde ao lançamento de oferta de um produto no barramento por parte das lojas.
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/myOffer`
+* Message type: `Offer`
+ 
+ 
+### Interface `offerEngage`
+> Essa interface implementada nos serviços de distribuição de ofertas escuta no barramento de forma coreografada as mensagens de ofertas das lojas.
+ 
+* Type: `sink`
+* Topic: `offer/+/myOffer`
+* Message type: `Offer`
+ 
+> Diagrama em formato JSON da mensagem Offer, onde id é o identificador da oferta, startDate é a data de início da oferta, endDate é a data de término da oferta, price é o preço da oferta. Product trata-se do objeto produto, onde, id é o identificador, name é o nome do produto, category é a lista de categorias em que o produto está associado, type é o tipo de produto e rating é a avaliação do produto.
 ~~~json
 {
   id: number,
@@ -297,6 +279,139 @@ Diagrama em formato JSON do message type Adhesion:
     }
 }
 ~~~
+ 
+### Interface `sendCart`
+> A interface *sendCart* é responsável por enviar para o barramento as informações do carrinho de compras selecionado pelo consumidor.
+ 
+* Type: `source`
+* Topic: `order/{cart}`
+* Message type: `order`
+ 
+> Diagrama em formato JSON da interface sendCart, onde id é o identificador do carrinho, customerid é o identificador do dono do carrinho, totalPrice é o valor total do carrinho, discount é o desconto realizado sobre o carrinho. Carttrata-se de um array de objeto carrinho, onde, id é o identificador, shopId a loja a qual o produto está vinculado, product é o nome do produto, price o valor, quantity a quantidade e stocklocation a localização do produto no estoque.
+~~~json
+{
+  id: number,
+  customerid: number,
+ sellDate: Date,
+  totalPrice: float,
+	 discount: float,
+  cart: [
+    {
+       id: number,
+		shopId: number,
+       productName: string,
+       price: float,
+		quantity: float,
+		stocklocation: string
+    }
+	 ]
+}
+~~~
+ 
+### Interface `cartReceived`
+> A interface *cartReceived* é responsável por receber do barramento as informações do carrinho de compras selecionado pelo consumidor.
+ 
+* Type: `sink`
+* Topic: `order/{cart}`
+* Message type: `order`
+ 
+> Diagrama em formato JSON da interface sendCart, onde id é o identificador do carrinho, customerid é o identificador do dono do carrinho, totalPrice é o valor total do carrinho, discount é o desconto realizado sobre o carrinho. Carttrata-se de um array de objeto carrinho, onde, id é o identificador, shopId a loja a qual o produto está vinculado, product é o nome do produto, price o valor, quantity a quantidade e stocklocation a localização do produto no estoque.
+~~~json
+{
+  id: number,
+  customerid: number,
+ sellDate: Date,
+  totalPrice: float,
+	 discount: float,
+  cart: [
+    {
+       id: number,
+		shopId: number,
+       productName: string,
+       price: float,
+		quantity: float,
+		stocklocation: string
+    }
+	 ]
+}
+~~~
+ 
+### Interface `sendSale`
+> A interface de comunicação assíncrona *sendSale* é responsável por enviar as informações da compra. 
+ 
+* Type: `source`
+* Topic: `order/{sale}/{storeId}`
+* Message type: `Sale`
+ 
+> Diagrama em formato JSON da interface sendSale, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
+ 
+### Interface `saleReceived`
+> A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
+ 
+* Type: `sink`
+* Topic: `order/+/+`
+* Message type: `Sale`
+ 
+> Diagrama em formato JSON da interface saleReceived, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
+~~~json
+{
+	 storeId: number,
+  id: number,
+  customerid: number,
+ sellDate: Date,
+  totalPrice: float,
+	 product: [
+    {
+       id: number,
+       name: string,
+       price: float,
+		quantity: float,
+    }
+	 ]
+}
+~~~
+ 
+### Interface `trackEngage`
+> A interface *trackEngage* é responsável por receber solicitações de compra. Trata-se de uma comunicação assíncrona.
+ 
+* Type: `sink`
+* Topic: `track/+/+`
+* Message type: `track`
+ 
+Diagrama em formato JSON da interface trackEngage:
+~~~json
+{
+ 
+ order: {
+   id: number
+ }
+}
+~~~
+ 
+ 
+### Interface `jobOfferStart`
+> Essa interface inicia a coreografia do lançamento e distribuição das ofertas. Ela é implementada por um componente JobOfertaDoDia.
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/start`
+* Message type: `OfferStart`
+ 
+### Interface `jobOfferEngage`
+> Essa interface reage à mensagem de início da coreografia de lançamento e distribuição de ofertas, engajando as lojas a lançar suas ofertas no barramento.
+ 
+* Type: `sink`
+* Topic: `offer/+/start`
+* Message type: `OfferStart`
+ 
+ 
+Diagrama em formato JSON da mensagem `OfferStart`
+~~~json
+{
+ offer: {
+   offerId: number
+ }
+}
+
 
 
 # Nível 2
