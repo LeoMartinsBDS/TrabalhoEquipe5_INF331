@@ -48,7 +48,7 @@
 > Este componente tem como objetivo realizar o controle da compra de uma mercadoria no marketplace. Oferece como serviço o envio da compra realizada para o pagamento através da interface `ICompra` e o recebimento do carrinho de compras através da interface `cartReceived`.
  
 > Diagrama do componente
-![Compra](diagrama-compra.png)
+![Compra](images/diagrama-compra.png)
  
 **Interfaces**
 > - ICompra
@@ -59,7 +59,7 @@
 > Este componente tem como objetivo realizar o pagamento do carrinho de compras. Tem como serviço requerer o pedido da compra, através da interface `ICompra` e realizar o envio do pagamento após a efetivação, através da interface `sendSale`.
  
 > Diagrama do componente
-![Pagamento](diagrama-pagamento.png)
+![Pagamento](images/diagrama-pagamento.png)
  
 **Interfaces**
 > - ICompra
@@ -70,7 +70,7 @@
 > Este componente tem como objetivo realizar o disparo do processo de gerar as ofertas do dia corrente. Basicamente o serviço dele é, obter os produtos internamente e realizar o disparo das ofertas dos produtos escolhidos através da interface jobOfferStart.
  
 > Diagrama do componente
-![JobOfferStart](diagrama-jobofferstart.png)
+![JobOfferStart](images/diagrama-jobofferstart.png)
  
 **Interfaces**
 > - jobOfferStart
@@ -80,7 +80,7 @@
 > Este componente visa representar os processos realizados internamente por uma loja de um marketplace. No contexto do nosso marketplace, possui como serviços receber as vendas, enviar informações para rastreamento, entrar em ofertas e enviar ofertas aos clientes. A ideia desse componente é permitir a integração de várias lojas ao sistema sem que haja necessidade de reescrever códigos fontes.
  
 > Diagrama do componente
-![JobOfferStart](diagrama-loja.png)
+![JobOfferStart](images/diagrama-loja.png)
  
 **Interfaces**
 > - saleReceived
@@ -131,8 +131,6 @@
 **Interfaces**
 > - ITransporte
 > - trackEngage
- 
- 
  
  
 **Interfaces**
@@ -232,7 +230,7 @@ Diagrama em formato JSON do message type `Adhesion`:
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
  
-> Diagrama em formato JSON do message type `Subscriptions`
+> Diagrama em formato JSON do message type `Subscriptions`:
  
 ~~~json
 {
@@ -245,22 +243,22 @@ Diagrama em formato JSON do message type `Adhesion`:
      period: string,
      type: number,
     },
-  {
+   {
      id: number,
      name: string,
      description: string,
      price: float,
      period: string,
      type: number,
-    },
-    {
+   },
+   {
      id: number,
      name: string,
      description: string,
      price: float,
      period: string,
      type: number,
-    },
+   },
  ]
 }
 ~~~
@@ -352,19 +350,20 @@ Diagrama em formato JSON do message type `Adhesion`:
 {
   id: number,
   customerid: number,
- sellDate: Date,
+  sellDate: Date,
   totalPrice: float,
-	 discount: float,
-  cart: [
-    {
-       id: number,
-		shopId: number,
-       productName: string,
-       price: float,
-		quantity: float,
-		stocklocation: string
-    }
-	 ]
+  discount: float,
+  cart: 
+  [
+		{
+		   id: number,
+		   shopId: number,
+		   productName: string,
+		   price: float,
+		   quantity: float,
+		   stocklocation: string
+		}
+	]
 }
 ~~~
  
@@ -385,19 +384,19 @@ Diagrama em formato JSON do message type `Adhesion`:
 > Diagrama em formato JSON do message type `Sale`:
 ~~~json
 {
-	 storeId: number,
+  storeId: number,
   id: number,
   customerid: number,
- sellDate: Date,
+  sellDate: Date,
   totalPrice: float,
-	 product: [
+  product: [
     {
        id: number,
        name: string,
        price: float,
 		quantity: float,
     }
-	 ]
+  ]
 }
 ~~~
  
@@ -462,9 +461,9 @@ Diagrama em formato JSON da mensagem `OfferStart`:
 ![Componente](images/diagrama_view.png)
 
 **Interfaces**
-> IStartAssinatura
-> IAssinaturas
-> IOfertas
+> - IStartAssinatura
+> - IAssinaturas
+> - IOfertas
  
 ## Componente `Controller Ofertas`
  
@@ -473,7 +472,7 @@ Diagrama em formato JSON da mensagem `OfferStart`:
 ![Componente](images/diagrama_controller_ofertas.png)
  
 **Interfaces**
-> IOfertas
+> - IOfertas
  
 ## Componente `Controller Assinaturas`
 
@@ -482,8 +481,8 @@ Diagrama em formato JSON da mensagem `OfferStart`:
 ![Componente](images/diagrama_controller_assinatura.png)
 
 **Interfaces**
-> IAssinaturas
-> IStartAssinatura
+> - IAssinaturas
+> - IStartAssinatura
 
 As interfaces listadas são detalhadas a seguir:
 
