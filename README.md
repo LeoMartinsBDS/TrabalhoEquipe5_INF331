@@ -320,14 +320,35 @@ Diagrama em formato JSON do message type Adhesion:
 
 > Para cada componente será apresentado um documento conforme o modelo a seguir:
 
-## Componente `<Nome do Componente>`
-
-> Resumo do papel do componente e serviços que ele oferece.
-
-![Componente](images/diagrama-componente.png)
-
+## Componente `ViewAssinante`
+ 
+> Este componente tem como objetivo realizar a renderização dos dados em tela. Ela recebe dados de assinaturas e ofertas. Como serviço, oferece a opção de “startar” uma assinatura atráves da interface `IStartAssinatura`
+ 
+![Componente](images/diagrama_view.png)
+ 
 **Interfaces**
-> Listagem das interfaces do componente.
+> IStartAssinatura
+> IAssinaturas
+> IOfertas
+ 
+## Componente `Controller Ofertas`
+ 
+> Este componente tem como objetivo ser uma controladora do componente maior, focando em ofertas. Neste caso, ele pega o que foi “escutado” no barramento pela interface sdoOfferEngage e provém para a view, através da interface IOfertas as informações das ofertas obtidas.
+ 
+![Componente](images/diagrama_controller_ofertas.png)
+ 
+**Interfaces**
+> IOfertas
+ 
+## Componente `Controller Assinaturas`
+ 
+> Este componente tem como objetivo ser uma controladora do componente maior, focando em assinaturas. Neste caso, ele pega o que foi “escutado” no barramento pela interface subscritionsEngage e provém para a view, através da interface IASSinaturas as informações das ofertas obtidas. Esse componente, também é responsável por iniciar uma adesão de uma assinatura. Isso é possível, pois ele requer uma interface IStartAssinatura, a qual é provida pela ViewAssinante. Ao obter o “start” da assinatura, a mesma sai do componente maior e é enviado para o barramento através da interface adhesionStart.
+ 
+![Componente](images/diagrama_controller_assinatura.png)
+ 
+**Interfaces**
+> IAssinaturas
+> IStartAssinatura
 
 As interfaces listadas são detalhadas a seguir:
 
