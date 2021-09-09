@@ -45,11 +45,10 @@
 
 ## Componente `Compra`
  
-> Este componente tem como objetivo realizar o controle da compra de uma mercadoria no marketplace. Oferece como serviço o envio da compra realizada para o pagamento através da interface ICompra e o recebimento do carrinho de compras através da interface cartReceived.
+> Este componente tem como objetivo realizar o controle da compra de uma mercadoria no marketplace. Oferece como serviço o envio da compra realizada para o pagamento através da interface `ICompra` e o recebimento do carrinho de compras através da interface `cartReceived`.
  
 > Diagrama do componente
-
-![Compra](images/diagrama-compra.png)
+![Compra](diagrama-compra.png)
  
 **Interfaces**
 > - ICompra
@@ -57,11 +56,10 @@
  
 ## Componente `Pagamento`
  
-> Este componente tem como objetivo realizar o pagamento do carrinho de compras. Tem como serviço requerer o pedido da compra, através da interface ICompra e realizar o envio do pagamento após a efetivação, através da interface sendSale.
+> Este componente tem como objetivo realizar o pagamento do carrinho de compras. Tem como serviço requerer o pedido da compra, através da interface `ICompra` e realizar o envio do pagamento após a efetivação, através da interface `sendSale`.
  
 > Diagrama do componente
-
-![Pagamento](images/diagrama-pagamento.png)
+![Pagamento](diagrama-pagamento.png)
  
 **Interfaces**
 > - ICompra
@@ -72,8 +70,7 @@
 > Este componente tem como objetivo realizar o disparo do processo de gerar as ofertas do dia corrente. Basicamente o serviço dele é, obter os produtos internamente e realizar o disparo das ofertas dos produtos escolhidos através da interface jobOfferStart.
  
 > Diagrama do componente
-
-![JobOfferStart](images/diagrama-jobofferstart.png)
+![JobOfferStart](diagrama-jobofferstart.png)
  
 **Interfaces**
 > - jobOfferStart
@@ -83,62 +80,118 @@
 > Este componente visa representar os processos realizados internamente por uma loja de um marketplace. No contexto do nosso marketplace, possui como serviços receber as vendas, enviar informações para rastreamento, entrar em ofertas e enviar ofertas aos clientes. A ideia desse componente é permitir a integração de várias lojas ao sistema sem que haja necessidade de reescrever códigos fontes.
  
 > Diagrama do componente
-
-![Loja](images/diagrama-loja.png)
+![JobOfferStart](diagrama-loja.png)
  
 **Interfaces**
 > - saleReceived
 > - trackStart
 > - jobOfferEngage
 > - sendOffer
-
+ 
 ## Componente `Assinatura`
 > O componente assinatura representa todos os processos e serviços inerentes à assinatura. O componente oferece o serviço de listar (envia mensagem no tópico) os tipos de assinatura disponíveis para serem aderidos pelo consumidor através da interface ‘subscriptions’. Além disso, oferece também a interface adhesionEngage (subscribe) receber pedidos de adesões em assinaturas disponíveis.
-
+ 
 > Diagrama do componente
-
+ 
 ![Assinatura](images/diagrama-componente-assinatura.png)
-
+ 
 **Interfaces**
 > - subscriptions
 > - adhesionEngage
-
+ 
 ## Componente `Assinante`
 > O componente assinante engloba todos os processos e requisitos que representam a ideia de assinante. Ele possui a interface ‘subscriptionsEngage’ para escutar os tipos de assinatura disponíveis pelo marketplace. Possui também a interface ‘sdoOfferEngage’ para receber as ofertas de acordo com o seu perfil e demais tipos de ofertas disponibilizadas pelos SDO’s (serviço de distribuição de ofertas). O componente assinante ainda possui a interface de comunicação para solicitar a inscrição em um plano de assinatura chamada de ‘adhesionStart’.
-
+ 
 > Diagrama do componente
-
+ 
 ![Assinante](images/diagrama-componente-assinante.png)
-
+ 
 **Interfaces**
 > - subscriptionsEngage
 > - sdoOfferEngage
 > - adhesionStart
-
+ 
+ 
 ## Componente `Consumidor`
 > O componente consumidor é responsável por atribuir serviços e interfaces que representam toda a função de consumidor. Possui a interface provida sendCart para enviar o pedido do carrinho de compras para pagamento. Possui também a interface ITransporte requerida para verificar o rastreio do pedido do carrinho.
- 
 > Diagrama do componente
-
-![Consumidor](images/diagrama-componente-consumidor.png)
  
+![Consumidor](images/diagrama-componente-consumidor.png)
 **Interfaces**
 > - ITransporte
 > - sendCart
-
+ 
+ 
 ## Componente `Transporte`
 > Este componente é responsável por prover informações sobre o transporte de uma determinada compra através da interface provida Itransporte. Possui também a interface de comunicação assíncrona para escutar no barramento informações sobre o rastreio do compra através de trackEngage.
-
-> Diagrama do componente
-
-![Transporte](images/diagrama-componente-transporte.png)
  
+> Diagrama do componente
+ 
+![Transporte](images/diagrama-componente-transporte.png)
 **Interfaces**
 > - ITransporte
 > - trackEngage
-
+ 
+ 
+ 
+ 
+**Interfaces**
+> Listagem das interfaces do componente.
+ 
+ 
+As interfaces listadas são detalhadas a seguir:
+ 
+## Componente `SDOMaisProximo`
+ 
+> Os componentes nomeados com o prefixo “`SDO`” são serviços de distribuição de ofertas que escutam no barramento todas as ofertas divulgadas pelas lojas e aplicam algum filtro segundo sua modelagem interna para então enviar novamente ao barramento mensagens dos tópicos esperados pelos assinantes.
+> O componente `SDOMaisProximo` seleciona ofertas divulgadas pelas lojas no barramento segundo a localização do assinante.
+ 
+> Diagrama do componente, conforme exemplo a seguir:
+ 
+![Componente](diagrama-componente-sdomaisproximo.png)
+ 
+**Interfaces**
+* JobOfferEngage
+* sendSDOCloser
+ 
+## Componente `SDOPerfilAssinante`
+ 
+> Este serviço de distribuição de ofertas seleciona ofertas filtradas por algoritmos inteligentes (*machine learning*) para oferecer ao assinante descontos em produtos relevantes para aquele tipo de perfil de consumidor.
+ 
+> Diagrama do componente, conforme exemplo a seguir:
+ 
+![Componente](diagrama-componente-sdoperfilassinante.png)
+ 
+**Interfaces**
+* JobOfferEngage.
+* sendSDOSubscriberProfile
+ 
+## Componente `SDOMenorPreco`
+ 
+> Este serviço de distribuição de ofertas seleciona fielmente os produtos em oferta com menores preços e distribui a todos os assinantes sem nenhum outro filtro especial.
+ 
+> Diagrama do componente, conforme exemplo a seguir:
+ 
+![Componente](diagrama-componente-sdomenorpreço.png)
+ 
+**Interfaces**
+* JobOfferEngage.
+* sendSDOLowestPrice
+ 
+## Componente `SDOPatrocinados`
+ 
+> Este serviço de distribuição de ofertas seleciona fielmente os produtos em oferta que são parte integrante da lista de produtos patrocinados pelo Marketplace. De tempos em tempos o Marketplace aplica estratégias junto a lojas e fornecedores para patrocinar determinados produtos. As lojas oferecem seus descontos do dia sem levar esse aspecto necessariamente em consideração, cabendo ao componente `SDOPatrocinados` realizar o tratamento especial desses produtos na divulgação aos assinantes.
+ 
+> Diagrama do componente, conforme exemplo a seguir:
+ 
+![Componente](diagrama-componente-sdopatrocinados.png)
+ 
+**Interfaces**
+* JobOfferEngage.
+* sendSDOSponsored.
+ 
 ## Detalhamento das Interfaces
-
+ 
 ### Interface `adhesionStart`
 > A interface *adhesionStart* é responsável por receber solicitações de adesões em tipos de assinatura. Trata-se de uma comunicação assíncrona.
  
@@ -153,8 +206,7 @@
 * Topic: `adhesion/+/+`
 * Message type: `Adhesion`
  
-Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
-Diagrama em formato JSON do message type Adhesion:
+Diagrama em formato JSON do message type `Adhesion`:
 ~~~json
 {
  user: {
@@ -166,7 +218,6 @@ Diagrama em formato JSON do message type Adhesion:
 }
 ~~~
  
-
 ### Interface `subscriptions`
 > A interface *subscriptions* é responsável por disponibilizar os tipos de assinatura disponíveis. Trata-se de uma comunicação assíncrona.
  
@@ -181,8 +232,7 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
  
-> Diagrama em formato JSON da interface subscriptions, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
-> Diagrama em formato JSON do message type Subscriptions:
+> Diagrama em formato JSON do message type `Subscriptions`
  
 ~~~json
 {
@@ -190,6 +240,7 @@ Diagrama em formato JSON do message type Adhesion:
    {
      id: number,
      name: string,
+     description: string,
      price: float,
      period: string,
      type: number,
@@ -197,6 +248,7 @@ Diagrama em formato JSON do message type Adhesion:
   {
      id: number,
      name: string,
+     description: string,
      price: float,
      period: string,
      type: number,
@@ -204,6 +256,7 @@ Diagrama em formato JSON do message type Adhesion:
     {
      id: number,
      name: string,
+     description: string,
      price: float,
      period: string,
      type: number,
@@ -211,40 +264,7 @@ Diagrama em formato JSON do message type Adhesion:
  ]
 }
 ~~~
-
-### Interface `sendSale`
-> A interface de comunicação assíncrona *sendSale* é responsável por enviar as informações da compra. 
  
-* Type: `source`
-* Topic: `order/{sale}/{storeId}`
-* Message type: `Sale`
- 
-### Interface `saleReceived`
-> A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
- 
-* Type: `sink`
-* Topic: `order/+/+`
-* Message type: `Sale`
- 
-> Diagrama em formato JSON do message type Sale:
-~~~json
-{
- storeId: number,
- id: number,
- customerid: number,
- sellDate: Date,
- totalPrice: float,
- product: [
-    {
-       id: number,
-       name: string,
-       price: float,
-		quantity: float,
-    }
- ]
-}
-~~~
-
 ### Interface `sendSDOCloser`
 > A interface *sendSDOCloser* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos que estão em promoção ao consumidores mais proximos das lojas
  
@@ -279,7 +299,22 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `offer/{offerId}/#`
 * Message type: `Offer`
  
-> Diagrama em formato JSON do message type Offer
+### Interface `sendOffer`
+> Essa interface corresponde ao lançamento de oferta de um produto no barramento por parte das lojas.
+ 
+* Type: `source`
+* Topic: `offer/{offerId}/myOffer`
+* Message type: `Offer`
+ 
+ 
+### Interface `offerEngage`
+> Essa interface implementada nos serviços de distribuição de ofertas escuta no barramento de forma coreografada as mensagens de ofertas das lojas.
+ 
+* Type: `sink`
+* Topic: `offer/+/myOffer`
+* Message type: `Offer`
+ 
+> Diagrama em formato JSON da mensagem `Offer`:
 ~~~json
 {
   id: number,
@@ -305,27 +340,6 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `order/{cart}`
 * Message type: `order`
  
-> Diagrama em formato JSON da interface sendCart, onde id é o identificador do carrinho, customerid é o identificador do dono do carrinho, totalPrice é o valor total do carrinho, discount é o desconto realizado sobre o carrinho. Carttrata-se de um array de objeto carrinho, onde, id é o identificador, shopId a loja a qual o produto está vinculado, product é o nome do produto, price o valor, quantity a quantidade e stocklocation a localização do produto no estoque.
-~~~json
-{
-  id: number,
-  customerid: number,
- sellDate: Date,
-  totalPrice: float,
-	 discount: float,
-  cart: [
-    {
-       id: number,
-		shopId: number,
-       productName: string,
-       price: float,
-		quantity: float,
-		stocklocation: string
-    }
-	 ]
-}
-~~~
- 
 ### Interface `cartReceived`
 > A interface *cartReceived* é responsável por receber do barramento as informações do carrinho de compras selecionado pelo consumidor.
  
@@ -333,7 +347,7 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `order/{cart}`
 * Message type: `order`
  
-> Diagrama em formato JSON da interface sendCart, onde id é o identificador do carrinho, customerid é o identificador do dono do carrinho, totalPrice é o valor total do carrinho, discount é o desconto realizado sobre o carrinho. Carttrata-se de um array de objeto carrinho, onde, id é o identificador, shopId a loja a qual o produto está vinculado, product é o nome do produto, price o valor, quantity a quantidade e stocklocation a localização do produto no estoque.
+> Diagrama em formato JSON do message type order.
 ~~~json
 {
   id: number,
@@ -361,8 +375,6 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `order/{sale}/{storeId}`
 * Message type: `Sale`
  
-> Diagrama em formato JSON da interface sendSale, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
- 
 ### Interface `saleReceived`
 > A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
  
@@ -370,7 +382,7 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `order/+/+`
 * Message type: `Sale`
  
-> Diagrama em formato JSON da interface saleReceived, onde id é o identificador da compra, customerid é o identificador do consumidor, totalPrice é o valor total da compra. Product trata-se de um array de objeto produto, onde, id é o identificador, name é o nome do produto, price o valor, quantity a quantidade.
+> Diagrama em formato JSON do message type `Sale`:
 ~~~json
 {
 	 storeId: number,
@@ -396,7 +408,7 @@ Diagrama em formato JSON do message type Adhesion:
 * Topic: `track/+/+`
 * Message type: `track`
  
-Diagrama em formato JSON da interface trackEngage:
+Diagrama em formato JSON do message type `track`:
 ~~~json
 {
  
@@ -405,7 +417,6 @@ Diagrama em formato JSON da interface trackEngage:
  }
 }
 ~~~
- 
  
 ### Interface `jobOfferStart`
 > Essa interface inicia a coreografia do lançamento e distribuição das ofertas. Ela é implementada por um componente JobOfertaDoDia.
@@ -422,7 +433,7 @@ Diagrama em formato JSON da interface trackEngage:
 * Message type: `OfferStart`
  
  
-Diagrama em formato JSON da mensagem `OfferStart`
+Diagrama em formato JSON da mensagem `OfferStart`:
 ~~~json
 {
  offer: {
