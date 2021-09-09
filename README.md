@@ -121,6 +121,7 @@
 > Diagrama do componente
  
 ![Consumidor](images/diagrama-componente-consumidor.png)
+
 **Interfaces**
 > - ITransporte
 > - sendCart
@@ -132,6 +133,7 @@
 > Diagrama do componente
  
 ![Transporte](images/diagrama-componente-transporte.png)
+
 **Interfaces**
 > - ITransporte
 > - trackEngage
