@@ -154,6 +154,7 @@
 * Message type: `Adhesion`
  
 Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
+Diagrama em formato JSON do message type Adhesion:
 ~~~json
 {
  user: {
@@ -165,6 +166,7 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 }
 ~~~
  
+
 ### Interface `subscriptions`
 > A interface *subscriptions* é responsável por disponibilizar os tipos de assinatura disponíveis. Trata-se de uma comunicação assíncrona.
  
@@ -180,6 +182,7 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 * Message type: `Subscriptions`
  
 > Diagrama em formato JSON da interface subscriptions, onde o id é o identificador, name é o nome, description é a descrição da assinatura, price é o custo da assinatura, period é o período de adesão e type é o tipo da assinatura:
+> Diagrama em formato JSON do message type Subscriptions:
  
 ~~~json
 {
@@ -187,7 +190,6 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
    {
      id: number,
      name: string,
-     description: string,
      price: float,
      period: string,
      type: number,
@@ -195,7 +197,6 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
   {
      id: number,
      name: string,
-     description: string,
      price: float,
      period: string,
      type: number,
@@ -203,7 +204,6 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
     {
      id: number,
      name: string,
-     description: string,
      price: float,
      period: string,
      type: number,
@@ -211,7 +211,40 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
  ]
 }
 ~~~
+
+### Interface `sendSale`
+> A interface de comunicação assíncrona *sendSale* é responsável por enviar as informações da compra. 
  
+* Type: `source`
+* Topic: `order/{sale}/{storeId}`
+* Message type: `Sale`
+ 
+### Interface `saleReceived`
+> A interface de comunicação assíncrona *saleReceived* é responsável por receber as informações da compra. 
+ 
+* Type: `sink`
+* Topic: `order/+/+`
+* Message type: `Sale`
+ 
+> Diagrama em formato JSON do message type Sale:
+~~~json
+{
+ storeId: number,
+ id: number,
+ customerid: number,
+ sellDate: Date,
+ totalPrice: float,
+ product: [
+    {
+       id: number,
+       name: string,
+       price: float,
+		quantity: float,
+    }
+ ]
+}
+~~~
+
 ### Interface `sendSDOCloser`
 > A interface *sendSDOCloser* é responsável por realizar o processamento da jobOffer e enviar para o barramento as informações dos produtos que estão em promoção ao consumidores mais proximos das lojas
  
@@ -246,22 +279,7 @@ Diagrama em formato JSON da interface adhesionStart e adhesionEngage:
 * Topic: `offer/{offerId}/#`
 * Message type: `Offer`
  
-### Interface `sendOffer`
-> Essa interface corresponde ao lançamento de oferta de um produto no barramento por parte das lojas.
- 
-* Type: `source`
-* Topic: `offer/{offerId}/myOffer`
-* Message type: `Offer`
- 
- 
-### Interface `offerEngage`
-> Essa interface implementada nos serviços de distribuição de ofertas escuta no barramento de forma coreografada as mensagens de ofertas das lojas.
- 
-* Type: `sink`
-* Topic: `offer/+/myOffer`
-* Message type: `Offer`
- 
-> Diagrama em formato JSON da mensagem Offer, onde id é o identificador da oferta, startDate é a data de início da oferta, endDate é a data de término da oferta, price é o preço da oferta. Product trata-se do objeto produto, onde, id é o identificador, name é o nome do produto, category é a lista de categorias em que o produto está associado, type é o tipo de produto e rating é a avaliação do produto.
+> Diagrama em formato JSON do message type Offer
 ~~~json
 {
   id: number,
@@ -411,8 +429,7 @@ Diagrama em formato JSON da mensagem `OfferStart`
    offerId: number
  }
 }
-~~~ 
-
+~~~
 
 # Nível 2
 
@@ -427,14 +444,35 @@ Diagrama em formato JSON da mensagem `OfferStart`
 * O componente `View Assinante` é o responsável por exibir graficamente as mensagens trocadas com o barramento. Ele possui a interface provida `IStartAssinatura` onde é possível o usuário solicitar a adesão em algum plano de assinatura. Possui também a interface requerida `IAssinaturas` onde recebe um conjunto de tipos de planos de assinatura para exibí-los na interface. Paralelamente a isso, possui também a interface requerida `IOfertas` onde recebe uma lista de ofertas para serem disponibilizadas para o assinante.
 
 
-## Componente `<Nome do Componente>`
+## Componente `ViewAssinante`
 
-> Resumo do papel do componente e serviços que ele oferece.
-
-![Componente](images/diagrama-componente.png)
+> Este componente tem como objetivo realizar a renderização dos dados em tela. Ela recebe dados de assinaturas e ofertas. Como serviço, oferece a opção de “startar” uma assinatura atráves da interface `IStartAssinatura`
+ 
+![Componente](images/diagrama_view.png)
 
 **Interfaces**
-> Listagem das interfaces do componente.
+> IStartAssinatura
+> IAssinaturas
+> IOfertas
+ 
+## Componente `Controller Ofertas`
+ 
+> Este componente tem como objetivo ser uma controladora do componente maior, focando em ofertas. Neste caso, ele pega o que foi “escutado” no barramento pela interface sdoOfferEngage e provém para a view, através da interface IOfertas as informações das ofertas obtidas.
+ 
+![Componente](images/diagrama_controller_ofertas.png)
+ 
+**Interfaces**
+> IOfertas
+ 
+## Componente `Controller Assinaturas`
+
+> Este componente tem como objetivo ser uma controladora do componente maior, focando em assinaturas. Neste caso, ele pega o que foi “escutado” no barramento pela interface subscritionsEngage e provém para a view, através da interface IASSinaturas as informações das ofertas obtidas. Esse componente, também é responsável por iniciar uma adesão de uma assinatura. Isso é possível, pois ele requer uma interface IStartAssinatura, a qual é provida pela ViewAssinante. Ao obter o “start” da assinatura, a mesma sai do componente maior e é enviado para o barramento através da interface adhesionStart.
+ 
+![Componente](images/diagrama_controller_assinatura.png)
+
+**Interfaces**
+> IAssinaturas
+> IStartAssinatura
 
 As interfaces listadas são detalhadas a seguir:
 
