@@ -148,7 +148,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Diagrama do componente, conforme exemplo a seguir:
  
-![Componente](diagrama-componente-sdomaisproximo.png)
+![Componente](images/diagrama-sdo-mais-proximo.png)
  
 **Interfaces**
 * JobOfferEngage
@@ -160,7 +160,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Diagrama do componente, conforme exemplo a seguir:
  
-![Componente](diagrama-componente-sdoperfilassinante.png)
+![Componente](images/diagrama-sdo-perfil-assinante.png)
  
 **Interfaces**
 * JobOfferEngage.
@@ -172,7 +172,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Diagrama do componente, conforme exemplo a seguir:
  
-![Componente](diagrama-componente-sdomenorpreço.png)
+![Componente](images/diagrama-sdo-menor-preco.png)
  
 **Interfaces**
 * JobOfferEngage.
@@ -184,7 +184,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Diagrama do componente, conforme exemplo a seguir:
  
-![Componente](diagrama-componente-sdopatrocinados.png)
+![Componente](images/diagrama-sdo-patrocinados.png)
  
 **Interfaces**
 * JobOfferEngage.
