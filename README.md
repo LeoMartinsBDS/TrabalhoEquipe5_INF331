@@ -232,7 +232,7 @@ Diagrama em formato JSON do message type `Adhesion`:
 * Topic: `subscriptions/listall`
 * Message type: `Subscriptions`
  
-> Diagrama em formato JSON do message type `Subscriptions`
+> Diagrama em formato JSON do message type `Subscriptions`:
  
 ~~~json
 {
@@ -245,22 +245,22 @@ Diagrama em formato JSON do message type `Adhesion`:
      period: string,
      type: number,
     },
-  {
+   {
      id: number,
      name: string,
      description: string,
      price: float,
      period: string,
      type: number,
-    },
-    {
+   },
+   {
      id: number,
      name: string,
      description: string,
      price: float,
      period: string,
      type: number,
-    },
+   },
  ]
 }
 ~~~
@@ -352,19 +352,20 @@ Diagrama em formato JSON do message type `Adhesion`:
 {
   id: number,
   customerid: number,
- sellDate: Date,
+  sellDate: Date,
   totalPrice: float,
-	 discount: float,
-  cart: [
-    {
-       id: number,
-		shopId: number,
-       productName: string,
-       price: float,
-		quantity: float,
-		stocklocation: string
-    }
-	 ]
+  discount: float,
+  cart: 
+  [
+		{
+		   id: number,
+		   shopId: number,
+		   productName: string,
+		   price: float,
+		   quantity: float,
+		   stocklocation: string
+		}
+	]
 }
 ~~~
  
@@ -385,19 +386,19 @@ Diagrama em formato JSON do message type `Adhesion`:
 > Diagrama em formato JSON do message type `Sale`:
 ~~~json
 {
-	 storeId: number,
+  storeId: number,
   id: number,
   customerid: number,
- sellDate: Date,
+  sellDate: Date,
   totalPrice: float,
-	 product: [
+  product: [
     {
        id: number,
        name: string,
        price: float,
 		quantity: float,
     }
-	 ]
+  ]
 }
 ~~~
  
@@ -463,7 +464,9 @@ Diagrama em formato JSON da mensagem `OfferStart`:
 
 **Interfaces**
 > IStartAssinatura
+
 > IAssinaturas
+
 > IOfertas
  
 ## Componente `Controller Ofertas`
@@ -483,6 +486,7 @@ Diagrama em formato JSON da mensagem `OfferStart`:
 
 **Interfaces**
 > IAssinaturas
+
 > IStartAssinatura
 
 As interfaces listadas são detalhadas a seguir:
