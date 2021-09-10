@@ -492,39 +492,40 @@ As interfaces listadas são detalhadas a seguir:
 
 ## Detalhamento das Interfaces
 
-### Interface `<nome da interface>`
+### Interface `IStartAssinatura`
 
-![Diagrama da Interface](images/diagrama-interface-itableproducer.png)
+![Diagrama da Interface](images/interface_StartAssinatura.png)
 
-> Resumo do papel da interface.
-
-Método | Objetivo
--------| --------
-`<id do método>` | `<objetivo do método e descrição dos parâmetros>`
-
-## Exemplos:
-
-### Interface `ITableProducer`
-
-![Diagrama da Interface](images/diagrama-interface-itableproducer.png)
-
-Interface provida por qualquer fonte de dados que os forneça na forma de uma tabela.
+Interface responsável por dar o inicio a uma assinatura, ou seja, o consumidor virar de fato um assinante.
 
 Método | Objetivo
 -------| --------
-`requestAttributes` | Retorna um vetor com o nome de todos os atributos (colunas) da tabela.
-`requestInstances` | Retorna uma matriz em que cada linha representa uma instância e cada coluna o valor do respectivo atributo (a ordem dos atributos é a mesma daquela fornecida por `requestAttributes`.
+`getAssinatura` | Retorna a assinatura que foi escolhida pelo consumidor através da view.
+`setAssinatura` | Define a assinatura que o consumidor escolheu.
+`iniciarAssinatura` | Através do getAssinatura, obtém a assinatura escolhida pelo consumidor e faz com que o consumidor se torne de fato um assinante do marketplace.
 
-### Interface `IDataSetProperties`
+### Interface `IAssinaturas`
 
-![Diagrama da Interface](images/diagrama-interface-idatasetproperties.png)
+![Diagrama da Interface](images/interface_assinaturas.png)
 
-Define o recurso (usualmente o caminho para um arquivo em disco) que é a fonte de dados.
+Responsável por realizar a listagem das assinaturas disponiveis para o consumidor.
 
 Método | Objetivo
 -------| --------
-`getDataSource` | Retorna o caminho da fonte de dados.
-`setDataSource` | Define o caminho da fonte de dados, informado através do parâmetro `dataSource`.
+`listAssinaturas` | Retorno todas as assinaturas que é possível adquirir.
+`getAssinaturaById` | Retorna uma unica assinatura de acordo com o ID. Utilizado para filtrar uma assinatura em específico.
+
+### Interface `IOfertas`
+
+![Diagrama da Interface](images/interface_ofertas.png)
+
+Responsável por realizar a listagem das ofertas disponiveis para o consumidor.
+
+Método | Objetivo
+-------| --------
+`listOfertas` | Retorno todas as ofertas processadas pelos SDOs.
+`getOfertaById` | Retorna uma unica oferta de acordo com o ID. Utilizado para filtrar uma oferta em específico.
+`getOfertasLoja` | Retorna as ofertas de uma loja. Utilizado durante a filtragem na view do consumidor, pesquisando por lojas.
 
 ## Diagrama do Nível 3
 
