@@ -471,7 +471,7 @@ Diagrama em formato JSON da mensagem `OfferStart`:
  
 ## Componente `Controller Ofertas`
  
-> Este componente tem como objetivo ser uma controladora do componente maior, focando em ofertas. Neste caso, ele pega o que foi “escutado” no barramento pela interface sdoOfferEngage e provém para a view, através da interface IOfertas as informações das ofertas obtidas.
+> Este componente tem como objetivo ser uma controladora do componente maior, focando em ofertas. Neste caso, ele pega o que foi “escutado” no barramento pela interface sdoOfferEngage e provém para a view, através da interface IOfertas as informações das ofertas obtidas. Possui uma interface requerida IOfertasStart onde recebe do controller Assinaturas o comando para exibir as ofertas referente ao plano do assinante.
  
 ![Componente](images/diagrama_controller_ofertas.png)
  
@@ -480,7 +480,7 @@ Diagrama em formato JSON da mensagem `OfferStart`:
  
 ## Componente `Controller Assinaturas`
 
-> Este componente tem como objetivo ser uma controladora do componente maior, focando em assinaturas. Neste caso, ele pega o que foi “escutado” no barramento pela interface subscritionsEngage e provém para a view, através da interface IASSinaturas as informações das ofertas obtidas. Esse componente, também é responsável por iniciar uma adesão de uma assinatura. Isso é possível, pois ele requer uma interface IStartAssinatura, a qual é provida pela ViewAssinante. Ao obter o “start” da assinatura, a mesma sai do componente maior e é enviado para o barramento através da interface adhesionStart.
+> Este componente tem como objetivo ser uma controladora do componente maior, focando em assinaturas. Neste caso, ele pega o que foi “escutado” no barramento pela interface subscritionsEngage e provém para a view, através da interface IASSinaturas as informações das ofertas obtidas. Esse componente, também é responsável por iniciar uma adesão de uma assinatura. Isso é possível, pois ele requer uma interface IStartAssinatura, a qual é provida pela ViewAssinante. Ao obter o “start” da assinatura, a mesma sai do componente maior e é enviado para o barramento através da interface adhesionStart. Possui uma interface IOfertasStart para ao seu iniciado, verifica se o usuário é um assinante e envia o comando para o controller ofertas para ser exibidos as ofertas.
  
 ![Componente](images/diagrama_controller_assinatura.png)
 
@@ -526,6 +526,16 @@ Método | Objetivo
 `listOfertas` | Retorno todas as ofertas processadas pelos SDOs.
 `getOfertaById` | Retorna uma unica oferta de acordo com o ID. Utilizado para filtrar uma oferta em específico.
 `getOfertasLoja` | Retorna as ofertas de uma loja. Utilizado durante a filtragem na view do consumidor, pesquisando por lojas.
+
+### Interface `IOfertasStart`
+
+![Diagrama da Interface](images/interface_ofertas_start.png)
+
+Responsável por comunicar se o usuário é assinante e iniciar as exibição das ofertas.
+
+Método | Objetivo
+-------| --------
+`assinante` | Chama o componente ofertas passando o id o assinante/usuário
 
 ## Diagrama do Nível 3
 
