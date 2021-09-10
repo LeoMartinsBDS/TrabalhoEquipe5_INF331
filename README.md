@@ -9,8 +9,6 @@
 
 # Nível 1
 
-> Apresente aqui o detalhamento do Nível 1 conforme detalhado na especificação com, no mínimo, as seguintes subseções:
-
 ## Diagrama Geral do Nível 1
 
 ![Diagrama do barramento completo](./images/inf331_trabalho_final.png)
