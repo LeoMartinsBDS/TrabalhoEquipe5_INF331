@@ -2,10 +2,10 @@
 
 # Equipe
 
-* Carlos Nihelton Santana de Oliveira
-* Leonardo Martins de Oliveira
-* Paulo Gabriel S.A. Carvalho
-* Paulo Sérgio do Nascimento
+* Carlos Nihelton Santana de Oliveira ex150295
+* Leonardo Martins de Oliveira 		  ex150339
+* Paulo Gabriel S.A. Carvalho		  ex150341
+* Paulo Sérgio do Nascimento          ex150352
 
 # Nível 1
 
@@ -568,4 +568,4 @@ são as modeladas pelos 4 SDO previamente apresentados (SDOMaisProximo, SDOMenor
 SDOPerfilAssinante, SDOPatrocinados).
 
 ---
-[Link](https://github.com/LeoMartinsBDS/TrabalhoEquipe5_INF331) para ter acesso ao histórico
+[Link](https://github.com/LeoMartinsBDS/TrabalhoEquipe5_INF331) do projeto no github a parte (histórico).
