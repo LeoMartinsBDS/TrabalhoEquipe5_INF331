@@ -529,14 +529,28 @@ Método | Objetivo
 
 ## Diagrama do Nível 3
 
-> Apresente uma imagem com a captura de tela de seu protótipo feito no MIT App Inventor, conforme modelo a seguir:
+Uma captura de tela da proposta de design da tela de início do assinante contendo as recomendações
+filtradas pelos SDO pode ser vista na imagem a seguir:
 
 ![Captura de Tela do Protótipo](images/captura-prototipo.png)
 
-> Apresente o diagrama referente ao protótipo conforme o modelo a seguir:
+O diagrama mostrando a interação dos subcomponentes da View Ofertas por meio de eventos
+com os Controllers Assinante e Ofertas pode ser visto na imagem seguinte:
 
 ![Modelo de diagrama no nível 2](images/diagrama-prototipo.png)
 
 ### Detalhamento da interação de componentes
 
-> O detalhamento deve seguir o mesmo formato usado no Nível 2.
+* Ao carregar o app, o Controller Assinaturas é notificado do usuário ativo para verificar se este
+é um assinante. 
+
+* Validada essa informação o Controller Ofertas é acionado pelo evento
+`populate_subscriber_offers` emitido pelo Controller Assinaturas para popular parte da tela
+inicial do assinante com as ofertas filtradas pelos serviços de distribuição de ofertas
+quais foram publicadas anteriormente no barramento durante a coreografia disparada pelo
+JobOfertaDoDia e realizada pelas lojas e pelos componentes SDO.
+
+* Uma lista de produtos em oferta segregados pelas 4 naturezas de ofertas consideradas
+neste protótipo é então passada do Controller Ofertas para a View. As referidas 4 naturezas
+são as modeladas pelos 4 SDO previamente apresentados (SDOMaisProximo, SDOMenorPreco,
+SDOPerfilAssinante, SDOPatrocinados).
