@@ -11,7 +11,7 @@
 
 ## Diagrama Geral do Nível 1
 
-![Diagrama do barramento completo](./images/inf331_trabalho_final.png)
+![Diagrama do barramento completo](images/diagrama-geral.png)
 
 
 
@@ -148,7 +148,7 @@ As interfaces listadas são detalhadas a seguir:
 > Os componentes nomeados com o prefixo “`SDO`” são serviços de distribuição de ofertas que escutam no barramento todas as ofertas divulgadas pelas lojas e aplicam algum filtro segundo sua modelagem interna para então enviar novamente ao barramento mensagens dos tópicos esperados pelos assinantes.
 > O componente `SDOMaisProximo` seleciona ofertas divulgadas pelas lojas no barramento segundo a localização do assinante.
  
-> Diagrama do componente, conforme exemplo a seguir:
+> Diagrama do componente:
  
 ![Componente](images/diagrama-sdo-mais-proximo.png)
  
@@ -160,7 +160,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Este serviço de distribuição de ofertas seleciona ofertas filtradas por algoritmos inteligentes (*machine learning*) para oferecer ao assinante descontos em produtos relevantes para aquele tipo de perfil de consumidor.
  
-> Diagrama do componente, conforme exemplo a seguir:
+> Diagrama do componente:
  
 ![Componente](images/diagrama-sdo-perfil-assinante.png)
  
@@ -172,7 +172,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Este serviço de distribuição de ofertas seleciona fielmente os produtos em oferta com menores preços e distribui a todos os assinantes sem nenhum outro filtro especial.
  
-> Diagrama do componente, conforme exemplo a seguir:
+> Diagrama do componente:
  
 ![Componente](images/diagrama-sdo-menor-preco.png)
  
@@ -184,7 +184,7 @@ As interfaces listadas são detalhadas a seguir:
  
 > Este serviço de distribuição de ofertas seleciona fielmente os produtos em oferta que são parte integrante da lista de produtos patrocinados pelo Marketplace. De tempos em tempos o Marketplace aplica estratégias junto a lojas e fornecedores para patrocinar determinados produtos. As lojas oferecem seus descontos do dia sem levar esse aspecto necessariamente em consideração, cabendo ao componente `SDOPatrocinados` realizar o tratamento especial desses produtos na divulgação aos assinantes.
  
-> Diagrama do componente, conforme exemplo a seguir:
+> Diagrama do componente:
  
 ![Componente](images/diagrama-sdo-patrocinados.png)
  
