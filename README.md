@@ -477,6 +477,7 @@ Diagrama em formato JSON da mensagem `OfferStart`:
  
 **Interfaces**
 > - IOfertas
+> - IOfertasStart
  
 ## Componente `Controller Assinaturas`
 
@@ -487,6 +488,7 @@ Diagrama em formato JSON da mensagem `OfferStart`:
 **Interfaces**
 > - IAssinaturas
 > - IStartAssinatura
+> - IOfertasStart
 
 As interfaces listadas são detalhadas a seguir:
 
@@ -564,3 +566,6 @@ JobOfertaDoDia e realizada pelas lojas e pelos componentes SDO.
 neste protótipo é então passada do Controller Ofertas para a View. As referidas 4 naturezas
 são as modeladas pelos 4 SDO previamente apresentados (SDOMaisProximo, SDOMenorPreco,
 SDOPerfilAssinante, SDOPatrocinados).
+
+---
+[Link](https://github.com/LeoMartinsBDS/TrabalhoEquipe5_INF331) para ter acesso ao histórico
